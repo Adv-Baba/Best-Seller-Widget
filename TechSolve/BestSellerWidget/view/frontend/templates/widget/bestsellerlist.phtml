@@ -1,0 +1,99 @@
+<?php
+
+$count = count($block->getBestsellerProduct()->getData());
+if ($exist = ($block->getBestsellerProduct() && $block->getBestsellerProduct()->getPageSize())) {
+	$fet_prodcollection = $block->getBestsellerProduct();
+	$productcount = $block->getProductLimit();
+	$imagewidth = $block->getProductimagewidth();
+	$imageheight = $block->getProductimageheight();
+	$mode = 'grid';
+	$title = __('Best sellers');
+	$type = 'widget-bestseller-grid';
+	$image = 'bestseller_products_content_widget_grid';
+	$isCat = $block->isCategoryPage();
+
+}
+?>
+
+<?php if ($count > 0) { ?>
+<div class="widget block block-static-block <?php /* @escapeNotVerified */ echo $mode; ?>">
+	<div class="title-section">
+		<h3><?php /* @escapeNotVerified */ echo $title; ?></h3>
+	</div>
+	<div class="row padding-box bestseller">
+		<?php foreach ($fet_prodcollection as $_item): ?>
+			<?php $_product = $block->getProductLoad($_item->getId());
+
+			$image_url = $block->imageHelperObj()->init($_product, 'product_base_image')
+			->setImageFile($_product->getFile())
+			->resize($imagewidth,$imageheight)
+			->getUrl();?>
+			<div class="col col-3">
+				<div class="product-box-item">
+					<div class="top-box-item">
+						<div class="image">
+							<a href="<?php echo $_item->getProductUrl() ?>">
+								<img src="<?php echo  $image_url;?>" alt="<?php echo $this->escapeHtml($_product->getName()) ?>" />
+							</a>
+						</div>
+						<?php 
+						$productName = $block->escapeHtml($_product->getName())?>
+						<?php $cutProductName = substr($productName,0,100) ?>
+						<?php if (strlen($cutProductName) < strlen($productName)) { ?>
+						<?php $cutProductName .= '...'; ?>
+						<?php } ?>
+						<div class="title">
+							<a href="<?= $_item->getProductUrl() ?>"><?= $cutProductName ?></a>
+						</div>
+						<div class="subtitle"><?= $_item->getSku() ?></div>
+					</div>
+					<div>
+						<?= $block->getProductPriceHtml($_product) ?>
+
+					</div>
+				</div>
+			</div>
+		<?php endforeach ?>
+	</div>
+</div>
+<?php } ?>
+<?php if(!$isCat):?>
+	<script>
+		require([
+			'jquery',
+			'slickcarousel'
+			], function($) {
+				$(document).ready(function() {
+					$(".block-static-block .bestseller").not('slick-initialized').slick({
+						dots: true,
+						infinite: true,
+						speed: 300,
+						slidesToShow: 4,
+						slidesToScroll: 4,
+						responsive: [{
+							breakpoint: 1280,
+							settings: {
+								slidesToShow: 3,
+								slidesToScroll: 3
+							}
+						},
+						{
+							breakpoint: 768,
+							settings: {
+								slidesToShow: 2,
+								slidesToScroll: 2
+							}
+						},
+						{
+							breakpoint: 600,
+							settings: {
+								slidesToShow: 1,
+								slidesToScroll: 1
+							}
+						}
+						]
+					});
+				});
+			});
+		</script>
+	<?php endif;?>
