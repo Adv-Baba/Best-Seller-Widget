@@ -2,4 +2,4 @@
 Best Seller Widget for listing and Home Page Configuration. 
 
 To install this module , try this.
-# composer require tech-solve/bestsellerwidget
+# `composer require tech-solve/bestsellerwidget`
