@@ -7,11 +7,7 @@
     "OSL-3.0",
     "AFL-3.0"
   ],
-  "require": {
-        "guzzlehttp/guzzle": "^6.3",
-        "shoppingfeed/php-sdk": "0.3.2",
-        "shoppingfeed/php-feed-generator": "1.1.0"
-   },
+  "require": {},
   "autoload": {
         "files": [
             "registration.php"
