@@ -1,5 +1,7 @@
-# Best-Seller-Widget
+# Best selling products from magento 2 order report
 Best Seller Widget for listing and Home Page Configuration. 
 
-To install this module , try this.
-# `composer require tech-solve/bestsellerwidget`
+To install this module by using composer
+>> 
+    composer require tech-solve/bestsellerwidget
+>>
